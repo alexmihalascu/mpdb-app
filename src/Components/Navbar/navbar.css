@@ -1,0 +1,51 @@
+@import "../Navbar/navbar.css";
+
+.navbar {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #fff;
+}
+
+.navbar.active{
+    background: var(--black);
+    padding:10px;
+}
+
+.navbar-brand {
+    font-size: 3em;
+    color: #fff !important;
+    padding: 0px 60px;
+}
+
+.navbar-brand span {
+    font-weight: 600;
+    color:var(--main);
+    font-size: 1.5em;
+}
+
+.navbar-nav{
+    padding: 0px 60px;
+    margin-top: 40px;
+}
+
+.nav-link{
+    color:#fff !important;
+    margin-left:8px;
+}
+
+.nav-link:hover{
+    color:var(--main) !important;
+}
+.nav-link:after{
+    content: "";
+    background:var(--main);
+    height: 2px;
+    width:0px;
+    display: block;
+    position:absolute;
+    transition: 0.3s;
+}
+.nav-link:hover::after{
+    width:40px;
+}

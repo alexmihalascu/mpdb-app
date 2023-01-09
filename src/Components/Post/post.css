@@ -1,0 +1,29 @@
+@import '../../App.css';
+
+.post {
+    margin: 200px auto;
+}
+
+.post .col-sm-5 {
+    overflow:hidden;
+}
+
+.post img {
+    height: 450px;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.post img:hover {
+    -o-transform: scale(1.1);
+    tranform: scale(1.1);
+    cursor:pointer;
+}
+
+.post .col-sm-5 h6{
+    font-size: 50px;
+    margin: 20px auto;
+    font-weight: 600;
+}
