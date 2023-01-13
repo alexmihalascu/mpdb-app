@@ -13,7 +13,7 @@ const Navbar = () => {
     };
 
     window.addEventListener("scroll", changeBg);
-
+  // comment
     return (
     <>
         {/* Navbar */}
