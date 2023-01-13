@@ -29,7 +29,7 @@ const Navbar = () => {
     <ul className="navbar-nav">
       <li className="nav-item">
         <a href="/home" className="nav-link">
-          Home
+          Home test commit
         </a>
       </li>
       <li className="nav-item">
