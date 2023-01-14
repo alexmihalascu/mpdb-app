@@ -1,6 +1,7 @@
 import PopularImg1 from "../Components/Images/popular1.jpg"
 import PopularImg2 from "../Components/Images/popular2.jpg";
 import footerImg from "../Components/Images/footer.jpg"
+import "./home.css"
 
 const Home = () =>{
     return (
