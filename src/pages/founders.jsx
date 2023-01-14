@@ -3,7 +3,7 @@ const Founders = () =>{
     return (
         
         <>
-<div className="popular container">  
+<div className="container">  
         <div className="column">
            Alexandru Mihalașcu
         </div>
