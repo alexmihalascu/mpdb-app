@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import HDRImg from "..//Images/myhdr.jpg"
 import './navbar.css';
 
 const Navbar = () => {
@@ -16,6 +17,7 @@ const Navbar = () => {
   // comment
     return (
     <>
+
         {/* Navbar */}
 <nav className={
   navbar
@@ -28,7 +30,7 @@ const Navbar = () => {
   <div>
     <ul className="navbar-nav">
       <li className="nav-item">
-        <a href="/home" className="nav-link">
+        <a href="/" className="nav-link">
           Home
         </a>
       </li>
@@ -55,9 +57,22 @@ const Navbar = () => {
     </ul>
   </div>
 </nav>
-    </>
-   
-);
+{/* Header */}
+<div className="header">
+                <div className="img">
+                    <div>
+                        <img src={HDRImg} alt=""/>
+                    </div>
+                    <div className="Overlay"></div>
+                </div>
+                <div className="Content">
+                <p>
+                </p>
+                </div>
+            </div>   
+        </>
+    );
 };
+  
 
 export default Navbar;

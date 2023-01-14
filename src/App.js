@@ -1,19 +1,22 @@
 import "./App.css";
 import Navbar from "./Components/Navbar/navbar";
-import Header from "./Components/Header/header";
-import Post from "./Components/Post/post";
-import Footer from "./Components/Footer/footer";
-import Custom from "./Components/custom/custom";
-import Popular from "./Components/popular/popular"
-import SecondHeader from "./Components/SecondHeader/secondheader";
+import { BrowserRouter as Router, Routes, Route}
+    from 'react-router-dom';
+import Home from "./pages/home"
+import Login from "./pages/login";
+import Cars from "./pages/cars";
 
 const App= () => {
     return(
      <>
-      <Navbar />
-      <Header />
-      <Popular />
-      <Footer />
+    <Router>
+    <Navbar />
+    <Routes>
+        <Route path='/' exact element={<Home />} />
+        <Route path='login' exact element={<Login />} />
+        <Route path='cars' exact element={<Cars />} />
+    </Routes>
+    </Router>
      </>  
     ); 
 };
