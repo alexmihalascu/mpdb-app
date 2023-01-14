@@ -5,10 +5,16 @@ const Founders = () =>{
         <>
 <div>
     <h1>Alexandru Mihalașcu</h1>
+</div>
+<div>
     <h2>Pencea Alexandru</h2>
-    <h3>Dinu Silviu Ion</h3>
-    <h4>Beznea Mihai</h4>
-  </div>
+</div>
+<div>
+        <h3>Dinu Silviu-Ion</h3>
+</div>
+<div>
+    <h4>Beznea Mihai-Gabriel</h4>
+</div>
         </>  
     )
 }
