@@ -1,0 +1,11 @@
+@import "../../App.css";
+
+.container {
+    display: flex;
+  }
+  
+  .column {
+    width: 25%; 
+    padding: 10px; 
+  }
+  
