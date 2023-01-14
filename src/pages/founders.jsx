@@ -5,16 +5,16 @@ const Founders = () =>{
         <>
 <div className="popular container">  
         <div className="column">
-           <h1>Alexandru Mihalașcu</h1> 
+           Alexandru Mihalașcu
         </div>
         <div className="column">
-            <h2>Pencea Alexandru</h2>
+            Pencea Alexandru
         </div>
         <div className="column">
-            <h3>Dinu Silviu-Ion</h3>
+            Dinu Silviu-Ion
         </div>
         <div className="column">
-            <h4>Beznea Mihai-Gabriel</h4> 
+            Beznea Mihai-Gabriel
         </div>       
 </div>  
         </>  
