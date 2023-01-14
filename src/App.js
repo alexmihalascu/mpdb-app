@@ -12,9 +12,6 @@ const App= () => {
      <>
       <Navbar />
       <Header />
-      <Post />
-      <Custom />
-      <SecondHeader />
       <Popular />
       <Footer />
      </>  

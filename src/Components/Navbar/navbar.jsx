@@ -23,23 +23,23 @@ const Navbar = () => {
   : "navbar navbar-expand-sm fixed-top"
 }>
   <a href="/" className="navbar-brand">
-    <span>MPDB</span> Sell Your Car 
+    <span>MPDB</span> Rent a Car 
   </a>
   <div>
     <ul className="navbar-nav">
       <li className="nav-item">
         <a href="/home" className="nav-link">
-          Home test commit
+          Home
         </a>
       </li>
       <li className="nav-item">
-        <a href="/sell" className="nav-link">
-          Sell Your Car
+        <a href="/cars" className="nav-link">
+         View Cars
         </a>
       </li>
       <li className="nav-item">
-        <a href="/view" className="nav-link">
-          View Cars
+        <a href="/rent" className="nav-link">
+          Rent
         </a>
       </li>
       <li className="nav-item">

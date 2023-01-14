@@ -15,23 +15,10 @@ const Popular = () => {
 
           <div className="offset-sm-1 col-sm-5">
             <div className="box">
-              <h6>Easy Coding</h6>
+              <h6>Premium Car Rental</h6>
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
-                accusantium, aliquid neque sit autem pariatur in dicta
-                cupiditate error quod id ea officiis fuga similique est odit
-                maiores eum et. <br />
-                <br />
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Tempore alias quia illum distinctio iusto reiciendis modi
-                laborum quo provident quae laudantium, beatae dolores! Officia
-                ut quo corrupti molestiae deserunt aspernatur? <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-                explicabo praesentium fuga! Quam expedita illum, cum quibusdam
-                fugiat molestiae corporis laborum nesciunt ipsam neque eligendi
-                aspernatur pariatur quis libero adipisci?
+              Suntem o companie premium de inchirieri auto, care oferim clientilor nostri cele mai bune masini de lux si servicii de inalta calitate. Ne mandrim cu o flota diversificata de masini, de la modele sport si exotice la SUV-uri si limuzine, toate mentinute la standarde ridicate de calitate si siguranta. Personalul nostru este instruit si dedicat pentru a oferi servicii exceptionale si experiente de conducere memorabile. Ne diferentiem prin atentie la detalii, servicii personalizate si preturi competitive. Alege sa calatoresti in stil si confort cu compania noastra de inchirieri auto premium
               </p>
-              <button className="btn">Read More</button>
             </div>
           </div>
         </div>
@@ -39,23 +26,12 @@ const Popular = () => {
         <div className="row">
           <div className="col-sm-5">
             <div className="box">
-              <h6>Easy Coding</h6>
+              <h6>Vrei sa inchiriezi o masina?</h6>
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
-                accusantium, aliquid neque sit autem pariatur in dicta
-                cupiditate error quod id ea officiis fuga similique est odit
-                maiores eum et. <br />
-                <br />
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Tempore alias quia illum distinctio iusto reiciendis modi
-                laborum quo provident quae laudantium, beatae dolores! Officia
-                ut quo corrupti molestiae deserunt aspernatur? <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-                explicabo praesentium fuga! Quam expedita illum, cum quibusdam
-                fugiat molestiae corporis laborum nesciunt ipsam neque eligendi
-                aspernatur pariatur quis libero adipisci?
+              Suntem incantati sa va oferim posibilitatea de a inchiria unul dintre masinile noastre de lux si de a va bucura de o experienta de calatorie de neuitat.
+
+Pentru a va rezerva masina dorita, va rugam sa completati formularul de inchiriere auto disponibil pe site-ul nostru. Acesta va solicita informatii precum data si ora dorite pentru inchiriere, modelul masinii ales si informatii personale.
               </p>
-              <button className="btn">Read More</button>
             </div>
           </div>
 

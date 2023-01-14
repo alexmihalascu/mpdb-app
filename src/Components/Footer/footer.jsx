@@ -14,7 +14,7 @@ const Footer = () => {
             </div>
             <div className="Footer_content">
                 <h6>
-                    <span>Our Footer</span> MPDB </h6>
+                    <span>Best Cars in Town</span> - MPDB TEAM</h6>
             </div>
         </div>
         </>
