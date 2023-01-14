@@ -95,6 +95,7 @@
   margin: 60px auto;
 }
 .popular .col-sm-5 p {
+  font-family: 'Times New Roman', Times, serif; 
   font-size: 14px;
   margin: 50px auto;
   overflow:hidden;
