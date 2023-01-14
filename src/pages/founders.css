@@ -1,5 +1,9 @@
 @import "../../App.css";
 
+.footer{
+  position: relative;
+}
+
 .container {
     display: flex;
   }
