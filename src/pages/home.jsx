@@ -17,7 +17,7 @@ const Home = () =>{
           <div className="offset-sm-1 col-sm-5">
             <div className="box">
               <h6>Premium Car Rental</h6>
-              <p>
+              <p font="Times New Rman">
               Suntem o companie premium de inchirieri auto, care oferim clientilor nostri cele mai bune masini de lux si servicii de inalta calitate. Ne mandrim cu o flota diversificata de masini, de la modele sport si exotice la SUV-uri si limuzine, toate mentinute la standarde ridicate de calitate si siguranta. Personalul nostru este instruit si dedicat pentru a oferi servicii exceptionale si experiente de conducere memorabile. Ne diferentiem prin atentie la detalii, servicii personalizate si preturi competitive. Alege sa calatoresti in stil si confort cu compania noastra de inchirieri auto premium
               </p>
             </div>
