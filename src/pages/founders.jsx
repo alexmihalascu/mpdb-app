@@ -14,18 +14,22 @@ const Founders = () =>{
     <div class="founder left">
     <img src={FounderImg1}  alt="Alex Mihalascu"></img>
         <p>Mihalașcu Alexandru</p>
+        <p>GitHub: alexmihalascu</p>
     </div>
     <div class="founder left">
     <img src={FounderImg2}  alt="Alex Pencea"></img>
         <p>Pencea Alexandru</p>
+        <p>GitHub: Lezinn</p>
     </div>
     <div class="founder right">
     <img src={FounderImg3}  alt="Silviu Dinu"></img>
         <p>Dinu Silviu-Ion</p>
+        <p>GitHub: FindTheCookie</p>
     </div>
     <div class="founder right">
     <img src={FounderImg4}  alt="Mihai Beznea"></img>
         <p>Beznea Mihai-Gabriel</p>
+        <p>GitHub: BezneaMihai</p>
     </div>
 </div>
   

@@ -1,22 +1,17 @@
 .founders-container {
-  margin-top: 4px;
+  margin-top: 20px;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .founder {
-  flex: 1;
   text-align: center;
-  overflow: hidden;
+  width: 50%; /* divide the container into 2 columns */
 }
 
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
-}
-
-.founder:nth-child(1), .founder:nth-child(2) {
-  width: 50%;
+.founder img {
+  margin-top:15px;
+  display: block;
+  margin: 0 auto;
 }
