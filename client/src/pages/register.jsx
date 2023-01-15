@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
   
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -19,11 +18,6 @@ const Register = () => {
         <label>
           Password:
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          Confirm Password:
-          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
         </label>
         <br />
         <button type="submit">Register</button>
