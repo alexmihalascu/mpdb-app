@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import "./login.css";
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -7,10 +8,10 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  }
+}
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="center-form" onSubmit={handleSubmit}>
       <label>
         Username:
         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />

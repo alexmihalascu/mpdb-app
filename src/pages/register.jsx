@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./register.css"
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ const Register = () => {
     }
   
     return (
-      <form onSubmit={handleSubmit}>
+      <form className="center-form" onSubmit={handleSubmit}>
         <label>
           Username:
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
