@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import footerImg from "../Components/Images/footer.jpg"
 import "./rent.css"
 
 const Rent = () => {
@@ -26,6 +27,7 @@ const Rent = () => {
   }
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <label htmlFor="name">Nume intreg:</label>
       <input
@@ -104,10 +106,23 @@ const Rent = () => {
         onChange={handleChange}
         required
       />
-      
       <input type="submit" value="Submit" />
     </form>
+    <div className="footer">
+    <div>
+        <div className="img">
+            <img src={footerImg} alt=""/>
+        </div>
+        <div className="Overlay"></div>
+    </div>
+    <div className="Footer_content">
+        <h6>
+            <span>Best Cars in Town</span> - MPDB TEAM</h6>
+    </div>
+</div>
+    </>
   );
+
 };
 
 export default Rent;

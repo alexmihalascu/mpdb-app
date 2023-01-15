@@ -7,6 +7,7 @@ import CarImg6 from "../Components/Images/car6.jpg"
 import CarImg7 from "../Components/Images/car7.jpg"
 import CarImg8 from "../Components/Images/car8.jpg"
 import footerImg from "../Components/Images/footer.jpg"
+import React from "react";
 import "./cars.css"
 
 const Cars = () =>{
