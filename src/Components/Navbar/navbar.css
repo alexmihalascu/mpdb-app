@@ -1,0 +1,118 @@
+@import "../Navbar/navbar.css";
+
+.navbar {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #fff;
+}
+
+.navbar.active{
+    background: var(--black);
+    padding:10px;
+}
+
+.navbar-brand {
+    font-size: 3em;
+    color: #fff !important;
+    padding: 0px 60px;
+}
+
+.navbar-brand span {
+    font-weight: 600;
+    color:var(--main);
+    font-size: 1.5em;
+}
+
+.navbar-nav{
+    padding: 0px 60px;
+    margin-top: 40px;
+}
+
+.nav-link{
+    color:#fff !important;
+    margin-left:8px;
+}
+
+.nav-link:hover{
+    color:var(--main) !important;
+}
+.nav-link:after{
+    content: "";
+    background:var(--main);
+    height: 2px;
+    width:0px;
+    display: block;
+    position:absolute;
+    transition: 0.3s;
+}
+.nav-link:hover::after{
+    width:40px;
+}
+.header {
+    position: relative;
+  }
+  .header img {
+    height: 15vh;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+  .Overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    opacity: 0.3;
+  }
+  .header .Content {
+    position: absolute;
+    top: 80%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+  }
+  .header .Content h6 {
+    font-size: 80px;
+    font-weight: 600;
+  }
+  .header .Content p {
+    font-size: 12px;
+  }
+  
+  .footer{
+      position: relative;
+  }
+  
+  .footer img{
+      height: 20vh;
+      width: 100%;
+      -o-object-fit:cover;
+      object-fit: cover;
+  }
+  
+  .footer .Overlay{
+      opacity: 0.6;
+  }
+  
+  .Footer_content{
+      position: absolute;
+      top: 50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+      background: #000;
+      padding: 5px;
+  }
+  
+  .Footer_content h6{
+      font-size: 40px;
+      color: #fff;
+      font-weight: 600;
+  }
+  
+  .Footer_content h6 span{
+      color: var(--main);
+      font-size:42px;
+  }
