@@ -1,0 +1,22 @@
+.founders-container {
+  margin-top: 4px;
+  display: flex;
+}
+
+.founder {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.founder:nth-child(1), .founder:nth-child(2) {
+  width: 50%;
+}

@@ -1,0 +1,19 @@
+.container {
+  width: 80%; /* adjust as needed */
+  margin: 15px auto; /* center on the page */
+}
+
+.row {
+  display: flex; /* use flexbox layout */
+  flex-wrap: wrap; /* allow items to wrap to the next line */
+}
+
+.col-3 {
+  flex: 1; /* distribute remaining space equally among columns */
+  margin: 10px; /* add some spacing between columns */
+  text-align: center; /* center the text within the column */
+}
+
+img {
+  max-width: 100%; /* scale images to fit within their columns */
+}
