@@ -8,6 +8,7 @@ import Cars from "./pages/cars"
 import Rent from "./pages/rent"
 import Founders from "./pages/founders";
 import Register from "./pages/register";
+import MyAccount from "./pages/myaccount";
 
 const App= () => {
     return(
@@ -21,6 +22,7 @@ const App= () => {
         <Route path='cars' exact element={<Cars />} />
         <Route path='rent' exact element={<Rent />} />
         <Route path='founders' exact element={<Founders />} />
+        <Route path='myaccount' exact element={<MyAccount />} />
     </Routes>
     </Router>
      </>  
