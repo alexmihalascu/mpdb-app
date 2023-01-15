@@ -21,11 +21,11 @@ const Founders = () =>{
     </div>
     <div class="founder right">
     <img src={FounderImg3}  alt="Silviu Dinu"></img>
-        <p>Dinu Silviu Ion</p>
+        <p>Dinu Silviu-Ion</p>
     </div>
     <div class="founder right">
     <img src={FounderImg4}  alt="Mihai Beznea"></img>
-        <p>Beznea Mihai Gabriel</p>
+        <p>Beznea Mihai-Gabriel</p>
     </div>
 </div>
   
