@@ -8,6 +8,18 @@ def connect_to_database():
     connection = sqlite3.connect('database.db')
     return connection
 
+def create_table():
+    connection = connect_to_database()
+    cursor = connection.cursor()
+    cursor.execute(
+        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT, is_admin INTEGER)"
+    )
+    connection.commit()
+    connection.close()
+
+
+create_table()
+
 def hash_password(password):
     """Hashes a password using SHA-256."""
     password = password.encode('utf-8')
