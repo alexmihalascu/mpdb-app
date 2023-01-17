@@ -8,6 +8,15 @@ def connect_to_database():
     connection = sqlite3.connect('database.db')
     return connection
 
+def create_table():
+    connection = connect_to_database()
+    cursor = connection.cursor()
+    cursor.exceute(
+        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT, is_admin INTEGER)"
+    )
+    connection.commit()
+    connection.close() 
+
 def hash_password(password):
     """Hashes a password using SHA-256."""
     password = password.encode('utf-8')
@@ -64,6 +73,10 @@ def is_admin():
 def index():
     print("mpdb-api is running")
     return jsonify({"message": "mpdb-api is running"}), 200
+
+@app.route('/testapi')
+def testapi():
+    return{"is my api running?":["yes","YES"]}
 
 
 if __name__ == '__main__':
