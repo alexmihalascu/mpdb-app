@@ -6,8 +6,6 @@ const MyAccount = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Send the new password to the server for updating
-    // ...
   };
 
   return (

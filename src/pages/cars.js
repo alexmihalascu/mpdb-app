@@ -22,6 +22,7 @@ const Cars = () =>{
       <p>An: 2020</p>
       <p>Putere: 450 CP</p>
       <p>Preț pe zi: 100 Euro</p>
+      <button onClick={() => window.location.href='/rent'}>Inchiriaza acum</button>
     </div>
     <div class="col-3">
     <img src={CarImg2}  alt="urus"></img>
@@ -29,6 +30,7 @@ const Cars = () =>{
       <p>An: 2021</p>
       <p>Putere: 650 CP</p>
       <p>Preț pe zi: 800 Euro</p>
+      <button onClick={() => window.location.href='/rent'}>Inchiriaza acum</button>
     </div>
     <div class="col-3">
     <img src={CarImg3}  alt="s63"></img>
@@ -36,6 +38,7 @@ const Cars = () =>{
       <p>An: 2022</p>
       <p>Putere: 791 CP</p>
       <p>Preț pe zi: 750 Euro</p>
+      <button onClick={() => window.location.href='/rent'}>Inchiriaza acum</button>
     </div>
     <div class="col-3">
     <img src={CarImg4}  alt="plaid"></img>
@@ -43,6 +46,7 @@ const Cars = () =>{
       <p>An: 2023</p>
       <p>Putere: 1020</p>
       <p>Preț pe zi: 700 Euro</p>
+      <button onClick={() => window.location.href='/rent'}>Inchiriaza acum</button>
     </div>
     <div class="row">
     <div class="col-3">
@@ -51,6 +55,7 @@ const Cars = () =>{
       <p>An: 2022</p>
       <p>Putere: 843 CP</p>
       <p>Preț pe zi: 900 Euro</p>
+      <button onClick={() => window.location.href='/rent'}>Inchiriaza acum</button>
     </div>
     <div class="col-3">
     <img src={CarImg6}  alt="urus"></img>
@@ -58,6 +63,7 @@ const Cars = () =>{
       <p>An: 2021</p>
       <p>Putere: 421 CP</p>
       <p>Preț pe zi: 300 Euro</p>
+      <button onClick={() => window.location.href='/rent'}>Inchiriaza acum</button>
     </div>
     <div class="col-3">
     <img src={CarImg7}  alt="s63"></img>
@@ -65,6 +71,7 @@ const Cars = () =>{
       <p>An: 2023</p>
       <p>Putere: 680 CP</p>
       <p>Preț pe zi: 800 Euro</p>
+      <button onClick={() => window.location.href='/rent'}>Inchiriaza acum</button>
     </div>
     <div class="col-3">
     <img src={CarImg8}  alt="plaid"></img>
@@ -72,6 +79,7 @@ const Cars = () =>{
       <p>An: 2023</p>
       <p>Putere: 1020</p>
       <p>Preț pe zi: 750 Euro</p>
+      <button onClick={() => window.location.href='/rent'}>Inchiriaza acum</button>
     </div>
     </div>
 
