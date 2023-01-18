@@ -3,12 +3,23 @@ import { Link } from 'react-router-dom';
 import "./login.css";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-}
+  const handleSubmit = (event) => {
+    fetch("http://127.0.0.1:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, password: password }),
+    })
+      .then((res) => {return res})
+      .then(() => {window.location.href = "/rent"} )
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <form className="center-form" onSubmit={handleSubmit}>
@@ -22,7 +33,7 @@ const Login = () => {
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
       <br />
-      <button type="submit">Login</button>
+      <button type="submit" onClick={()=>{handleSubmit()}}>Login</button>
       <Link to='/register'>
         <button> Register </button>
         </Link>

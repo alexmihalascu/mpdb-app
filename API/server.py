@@ -1,21 +1,15 @@
 from flask import Flask, request, jsonify
 import sqlite3
 import hashlib
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 def connect_to_database():
     connection = sqlite3.connect('database.db')
     return connection
 
-def create_table():
-    connection = connect_to_database()
-    cursor = connection.cursor()
-    cursor.exceute(
-        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT, is_admin INTEGER)"
-    )
-    connection.commit()
-    connection.close() 
 
 def hash_password(password):
     """Hashes a password using SHA-256."""
@@ -48,8 +42,8 @@ def login():
     user = cursor.fetchone()
     if user:
         return jsonify({"message": "Login successful"}), 200
-    else:
-        return jsonify({"message": "Invalid credentials"}), 401
+    
+    return jsonify({"message": "Invalid credentials"}), 401
 
 @app.route('/logout', methods=['POST'])
 def logout():
