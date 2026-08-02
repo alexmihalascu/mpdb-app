@@ -1,0 +1,226 @@
+/* Reset, base typography and layout primitives. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: var(--leading-normal);
+  font-variation-settings: 'wdth' var(--wdth-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' var(--wdth-display);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--step-5);
+}
+h2 {
+  font-size: var(--step-4);
+}
+h3 {
+  font-size: var(--step-2);
+}
+h4 {
+  font-size: var(--step-1);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-color: var(--signal);
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+  padding: 0;
+}
+
+/* --- Focus: always visible, never removed. ------------------------------- */
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+  border-radius: var(--radius-s);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--signal-ink);
+}
+
+/* --- Layout primitives ---------------------------------------------------- */
+.shell {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.shell--wide {
+  max-width: 92rem;
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.prose {
+  max-width: var(--measure);
+  color: var(--text-muted);
+  font-size: var(--step-1);
+}
+
+.stack > * + * {
+  margin-block-start: var(--space-s);
+}
+
+/* --- The data layer ------------------------------------------------------- */
+/* Every number in the interface is set in the mono face with tabular figures
+   so specs and prices line up in a column and stay comparable at a glance. */
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.eyebrow--signal {
+  color: var(--signal);
+}
+
+.rule {
+  height: 1px;
+  border: 0;
+  background: var(--line);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: var(--space-s);
+  inset-block-start: -100%;
+  z-index: calc(var(--z-header) + 10);
+  padding: var(--space-2xs) var(--space-s);
+  background: var(--signal);
+  color: var(--signal-ink);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  border-radius: var(--radius-s);
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  inset-block-start: var(--space-s);
+}
+
+/* --- Scroll reveal --------------------------------------------------------
+   Scoped to `.js`, which main.jsx sets on <html> before the first render.
+   Content is therefore never hidden by CSS alone: if the script fails to run
+   or IntersectionObserver misbehaves, these sections simply show up rather
+   than leaving a blank gap in the middle of the page. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

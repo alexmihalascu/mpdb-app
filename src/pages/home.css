@@ -1,104 +1,307 @@
+/* ==========================================================================
+   Hero
+   ========================================================================== */
 
-.footer{
-    position: relative;
-}
-
-.footer img{
-    height: 20vh;
-    width: 100%;
-    -o-object-fit:cover;
-    object-fit: cover;
-}
-
-.footer .Overlay{
-    opacity: 0.6;
-}
-
-.Footer_content{
-    position: absolute;
-    top: 50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    background: #000;
-    padding: 5px;
-}
-
-.Footer_content h6{
-    font-size: 40px;
-    color: #fff;
-    font-weight: 600;
-}
-
-.Footer_content h6 span{
-    color: var(--main);
-    font-size:42px;
-}
-
-.header {
-    position: relative;
-  }
-  .header img {
-    height: 15vh;
-    width: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-  }
-  .Overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: #000;
-    opacity: 0.3;
-  }
-  .header .Content {
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-  }
-  .header .Content h6 {
-    font-size: 80px;
-    font-weight: 600;
-  }
-  .header .Content p {
-    font-size: 12px;
-  }
-
-.popular {
-    margin: 50px auto;
-}
-.popular .row {
-  margin: 100px auto;
-}
-.popular img {
-  height: 450px;
-  width: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-  cursor: pointer;
-}
-.popular .box {
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: min(86dvh, 46rem);
+  /* Pulled under the sticky header so the photograph runs to the top edge. */
+  margin-block-start: -4.25rem;
+  padding-block-start: 4.25rem;
   overflow: hidden;
+  isolation: isolate;
 }
-.popular .box img:hover {
-  -o-transform: scale(1.1);
-  transform: scale(1.1);
+
+.hero__bg,
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
 }
-.popular .col-sm-5 h6 {
+
+.hero__bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  filter: var(--image-tone);
+}
+
+.hero__scrim {
+  background: var(--scrim);
+}
+
+.hero__content {
+  padding-block: var(--space-2xl) var(--space-xl);
+  color: #f4f6f8;
+}
+
+/* The hero sits on photography whose brightness varies, so its eyebrow drops
+   the signal red -- which cannot hold contrast over the lighter areas -- and
+   uses the same light neutral as the rest of the hero copy. */
+.hero__eyebrow {
+  color: #e4e8ee;
+  animation: hero-rise 620ms var(--ease-out) both;
+}
+
+.hero__title {
+  max-width: 16ch;
+  margin-block: var(--space-xs) var(--space-s);
+  font-variation-settings: 'wdth' 118;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  text-wrap: initial;
+  animation: hero-rise 620ms 80ms var(--ease-out) both;
+}
+
+.hero__lede {
+  max-width: 46ch;
+  color: #c9cfd9;
+  font-size: var(--step-1);
+  animation: hero-rise 620ms 160ms var(--ease-out) both;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  margin-block-start: var(--space-l);
+  animation: hero-rise 620ms 240ms var(--ease-out) both;
+}
+
+/* On the photograph the ghost button needs its own light treatment rather
+   than the theme's neutral border. */
+.hero__ghost {
+  --btn-fg: #f4f6f8;
+  --btn-border: rgba(244, 246, 248, 0.4);
+}
+
+.hero__ghost:hover:not(:disabled) {
+  --btn-border: #f4f6f8;
+  --btn-fg: #f4f6f8;
+  background: rgba(244, 246, 248, 0.1);
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Telemetry rail ------------------------------------------------------- */
+.readout {
+  margin: 0;
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-block-start: var(--border);
+  animation: hero-rise 620ms 320ms var(--ease-out) both;
+}
+
+.readout__inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.readout__cell {
+  padding: var(--space-s) var(--space-s) var(--space-s) 0;
+}
+
+.readout__cell + .readout__cell {
+  padding-inline-start: var(--space-s);
+  border-inline-start: var(--border);
+}
+
+.readout__note {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.readout__figure {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  margin: var(--space-3xs) 0 0;
+  line-height: 1;
+}
+
+.readout__value {
+  font-size: var(--step-3);
   font-weight: 600;
-  font-size: 40px;
-  margin: 60px auto;
-}
-.popular .col-sm-5 p {
-  font-size: 14px;
-  margin: 50px auto;
-  overflow:hidden;
+  letter-spacing: -0.03em;
+  color: var(--text);
 }
 
+.readout__unit {
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
 
-.post .col-sm-5 {
-    overflow:hidden;
+@media (max-width: 46rem) {
+  .readout__inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .readout__cell:nth-child(odd) {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .readout__cell:nth-child(n + 3) {
+    border-block-start: var(--border);
+  }
+}
+
+/* ==========================================================================
+   Editorial rows
+   ========================================================================== */
+
+.editorial {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+.editorial__row {
+  display: grid;
+  align-items: center;
+  gap: var(--space-l);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.editorial__row--flip .editorial__figure {
+  order: 2;
+}
+
+.editorial__figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-l);
+  border: var(--border);
+}
+
+.editorial__figure img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: var(--image-tone);
+}
+
+.editorial__title {
+  font-size: var(--step-3);
+  margin-block: var(--space-2xs) var(--space-s);
+}
+
+@media (max-width: 52rem) {
+  .editorial__row,
+  .editorial__row--flip {
+    grid-template-columns: 1fr;
+  }
+
+  .editorial__row--flip .editorial__figure {
+    order: 0;
+  }
+}
+
+/* ==========================================================================
+   Steps
+   ========================================================================== */
+
+.steps {
+  display: grid;
+  gap: var(--space-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.step {
+  padding-block-start: var(--space-s);
+  border-block-start: 2px solid var(--line-strong);
+  transition: border-color var(--dur-mid) var(--ease-out);
+}
+
+.step:hover {
+  border-block-start-color: var(--signal);
+}
+
+.step__index {
+  display: block;
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--signal);
+}
+
+.step__title {
+  margin-block: var(--space-2xs) var(--space-3xs);
+  font-size: var(--step-1);
+}
+
+.step__body {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
+
+/* ==========================================================================
+   Closing call to action
+   ========================================================================== */
+
+.cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-block-start: var(--section-y);
+}
+
+.cta__bg,
+.cta__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.cta__bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--image-tone);
+}
+
+.cta__scrim {
+  background: linear-gradient(
+    to right,
+    rgba(7, 8, 11, 0.94) 0%,
+    rgba(7, 8, 11, 0.72) 55%,
+    rgba(7, 8, 11, 0.35) 100%
+  );
+}
+
+.cta__content {
+  padding-block: var(--space-2xl);
+  color: #f4f6f8;
+}
+
+.cta__title {
+  max-width: 18ch;
+  font-size: var(--step-4);
+}
+
+.cta__body {
+  max-width: 44ch;
+  margin-block: var(--space-s) var(--space-l);
+  color: #c9cfd9;
 }

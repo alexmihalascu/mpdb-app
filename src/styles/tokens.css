@@ -1,0 +1,162 @@
+/* ==========================================================================
+   MPDB design tokens
+   --------------------------------------------------------------------------
+   The fleet is defined by its numbers, so the system has a distinct "data"
+   layer: a monospace utility face, tabular figures, and a single signal red
+   reserved for actions and performance readouts. Everything else is graphite
+   and steel so the numbers stay the loudest thing on the page.
+   ========================================================================== */
+
+:root {
+  /* --- Type -------------------------------------------------------------- */
+  --font-display: 'Archivo', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', 'Consolas', monospace;
+
+  --step--2: 0.75rem;
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: clamp(1.0625rem, 0.25vw + 1rem, 1.1875rem);
+  --step-2: clamp(1.3125rem, 0.6vw + 1.15rem, 1.625rem);
+  --step-3: clamp(1.625rem, 1.2vw + 1.3rem, 2.25rem);
+  --step-4: clamp(2.125rem, 2.4vw + 1.5rem, 3.25rem);
+  --step-5: clamp(2.75rem, 5.2vw + 1.25rem, 5.5rem);
+
+  --leading-tight: 1.02;
+  --leading-snug: 1.25;
+  --leading-normal: 1.6;
+
+  /* Display is set wide, like automotive badging. */
+  --wdth-display: 112;
+  --wdth-body: 100;
+
+  /* --- Space ------------------------------------------------------------- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+
+  --section-y: clamp(3.5rem, 7vw, 7rem);
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --measure: 62ch;
+  --page-max: 78rem;
+
+  /* --- Shape ------------------------------------------------------------- */
+  --radius-s: 3px;
+  --radius-m: 6px;
+  --radius-l: 10px;
+  --border: 1px solid var(--line);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 140ms;
+  --dur-mid: 260ms;
+  --dur-slow: 620ms;
+
+  --focus-ring: 2px solid var(--signal);
+  --focus-offset: 2px;
+
+  /* --- Layering ---------------------------------------------------------- */
+  --z-header: 100;
+  --z-overlay: 200;
+}
+
+/* --- Dark: the default. Graphite with instrument-panel backlighting. ------ */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --ink: #0c0e12;
+  --ink-deep: #07080b;
+  --surface: #14171d;
+  --surface-raised: #1b1f27;
+  --line: #262b34;
+  --line-strong: #3a414d;
+
+  --text: #e9ebef;
+  --text-muted: #8d96a6;
+  --text-faint: #5e6675;
+
+  --signal: #f1223a;
+  --signal-hover: #ff3b50;
+  --signal-ink: #ffffff;
+  --signal-wash: rgba(241, 34, 58, 0.12);
+
+  --ok: #35c17f;
+  --warn: #f0a92c;
+
+  --shadow-s: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-m: 0 12px 28px -12px rgba(0, 0, 0, 0.75);
+  --shadow-l: 0 28px 60px -24px rgba(0, 0, 0, 0.85);
+
+  --scrim: linear-gradient(to top, rgba(7, 8, 11, 0.96) 12%, rgba(7, 8, 11, 0.45) 55%, rgba(7, 8, 11, 0.1) 100%);
+  --image-tone: saturate(1.05) contrast(1.04);
+}
+
+/* --- Light: cool paper and steel, never cream. ---------------------------- */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --ink: #f4f6f8;
+  --ink-deep: #e8ebef;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --line: #dde2e9;
+  --line-strong: #b9c1cd;
+
+  --text: #0c0e12;
+  --text-muted: #5b6470;
+  --text-faint: #838d9a;
+
+  --signal: #d10f26;
+  --signal-hover: #b00b1f;
+  --signal-ink: #ffffff;
+  --signal-wash: rgba(209, 15, 38, 0.09);
+
+  --ok: #12855a;
+  --warn: #9a6408;
+
+  --shadow-s: 0 1px 2px rgba(12, 14, 18, 0.07);
+  --shadow-m: 0 12px 28px -14px rgba(12, 14, 18, 0.22);
+  --shadow-l: 0 28px 60px -28px rgba(12, 14, 18, 0.3);
+
+  --scrim: linear-gradient(to top, rgba(8, 10, 13, 0.9) 10%, rgba(8, 10, 13, 0.4) 55%, rgba(8, 10, 13, 0.05) 100%);
+  --image-tone: saturate(1) contrast(1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+
+    --ink: #f4f6f8;
+    --ink-deep: #e8ebef;
+    --surface: #ffffff;
+    --surface-raised: #ffffff;
+    --line: #dde2e9;
+    --line-strong: #b9c1cd;
+
+    --text: #0c0e12;
+    --text-muted: #5b6470;
+    --text-faint: #838d9a;
+
+    --signal: #d10f26;
+    --signal-hover: #b00b1f;
+    --signal-wash: rgba(209, 15, 38, 0.09);
+
+    --ok: #12855a;
+    --warn: #9a6408;
+
+    --shadow-s: 0 1px 2px rgba(12, 14, 18, 0.07);
+    --shadow-m: 0 12px 28px -14px rgba(12, 14, 18, 0.22);
+    --shadow-l: 0 28px 60px -28px rgba(12, 14, 18, 0.3);
+
+    --scrim: linear-gradient(to top, rgba(8, 10, 13, 0.9) 10%, rgba(8, 10, 13, 0.4) 55%, rgba(8, 10, 13, 0.05) 100%);
+    --image-tone: saturate(1) contrast(1);
+  }
+}

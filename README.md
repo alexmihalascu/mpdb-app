@@ -1,87 +1,157 @@
-
 <br/>
 <p align="center">
   <h3 align="center">MPDB-APP</h3>
 </p>
 
-**MPDB-APP** is a faculty project developed to demonstrate a full-stack application using **React** for the frontend, **Python** for the backend, and **SQLite** for the database. The project serves as an example of how to integrate these technologies for data handling and user authentication.
+**MPDB-APP** este o aplicație full-stack de închirieri auto premium: frontend **React 19 + Vite**, API **Python / Flask**, bază de date **SQLite**. Utilizatorii pot naviga flota, rezerva o mașină și își pot gestiona rezervările dintr-un cont propriu.
 
-## 📖 Project Overview
+## 🔧 Stack
 
-This application allows users to register, log in, and securely store their information in a local database. The backend handles encryption, user validation, and secure data storage. The frontend is designed to be user-friendly, showcasing the integration of a responsive React UI with a robust backend and a lightweight SQLite database.
+| Strat        | Tehnologie                                                        |
+| ------------ | ----------------------------------------------------------------- |
+| Frontend     | React 19, Vite 7, React Router 7, CSS cu design tokens             |
+| Backend      | Flask 3, blueprint-uri, JWT în cookie httpOnly, Flask-Limiter      |
+| Bază de date | SQLite cu migrații versionate (`PRAGMA user_version`)              |
+| Testare      | Vitest + Testing Library (frontend), pytest (backend)              |
 
-### Key Features:
+## 📋 Instalare
 
-- **User Registration and Authentication**: Users can register an account, which is stored securely with encrypted passwords.
-- **Data Persistence**: SQLite database stores user credentials and information.
-- **Full-Stack Integration**: The app demonstrates how a React frontend interacts with a Python backend, showcasing data flow between layers.
-  
-## 🔧 Built With
+```bash
+git clone https://github.com/alexmihalascu/mpdb-app.git
+cd mpdb-app
+```
 
-- **Frontend**: React, providing a modern, responsive user interface.
-- **Backend**: Python, handling server-side logic, API requests, and database interactions.
-- **Database**: SQLite, a lightweight and efficient local database to store user data.
+**1. Frontend**
 
-## 📋 Instructions
+```bash
+npm install
+```
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/alexmihalascu/mpdb-app.git
-   ```
+**2. Backend** (Python 3.11+)
 
-2. **Navigate to the Project Directory**:
-   ```bash
-   cd mpdb-app
-   ```
+```bash
+cd API
+python -m venv .venv
 
-3. **Install Frontend Dependencies**:
-   ```bash
-   npm install
-   ```
+# Windows
+.venv\Scripts\python -m pip install -r requirements.txt
+# macOS / Linux
+.venv/bin/python -m pip install -r requirements.txt
 
-4. **Start the Frontend**:
-   ```bash
-   npm start
-   ```
+cp .env.example .env      # opțional în development
+cd ..
+```
 
-5. **Open a New Terminal**.
+## 🚀 Pornire
 
-6. **Navigate to the API Directory**:
-   ```bash
-   cd mpdb-app/api
-   ```
+Cu un singur terminal — pornește și frontendul, și API-ul:
 
-7. **Start the API server**:
-   ```bash
-   python3 server.py
-   ```
+```bash
+npm run dev:all
+```
 
-8. **Test the Application**:
-   Open your browser and go to [http://localhost:3000](http://localhost:3000) to interact with the app.
+Sau separat, în două terminale:
 
-## 📸 API Demonstration
+```bash
+npm start          # frontend → http://localhost:5173
+npm run dev:api    # API      → http://127.0.0.1:5000
+```
 
-- **Database Before Registration**:
-  - The database in its initial state, with the terminal open to verify the API's functionality during registration.
-  ![Database Before Registration](https://user-images.githubusercontent.com/41302353/213150342-1f97c568-2556-4797-be20-e52721025b28.png)
+Deschide [http://localhost:5173](http://localhost:5173).
 
-- **Database After Registration**:
-  - Shows the database updated with the registered username and encrypted password.
-  ![Database After Registration](https://user-images.githubusercontent.com/41302353/213150616-62cea769-8554-4155-a209-c5680088b842.png)
+Vite trimite prin proxy tot ce începe cu `/api` către Flask, deci browserul vede o singură origine și cookie-ul de sesiune rămâne first-party. Nu există URL-uri absolute în cod.
 
-- **API Response After Login**:
-  - Confirms successful login by validating stored credentials.
-  ![API Login Response](https://user-images.githubusercontent.com/41302353/213150882-592bc599-198a-4181-83d0-d8dabfdba0a1.png)
+Baza de date se creează și se migrează automat la prima pornire a API-ului.
 
-## 📸 Project Screenshots
+## 📜 Comenzi
 
-![Project Screenshot 1](https://user-images.githubusercontent.com/41302353/213149946-b52e6e4c-8f07-403a-8760-c2e76a466518.png)
-![Project Screenshot 2](https://user-images.githubusercontent.com/41302353/213149976-be257994-2d2f-43c9-bfad-642b1379b08f.png)
-![Project Screenshot 3](https://user-images.githubusercontent.com/41302353/213150009-4be66db5-26af-40af-aa02-63bd71c045a4.png)
-![Project Screenshot 4](https://user-images.githubusercontent.com/41302353/213150029-18235dc4-df22-4e69-8295-2bac79f690c4.png)
-![Project Screenshot 5](https://user-images.githubusercontent.com/41302353/213150075-fe80a843-e8af-40f4-8aab-7ef59723fb7a.png)
+| Comandă             | Ce face                                            |
+| ------------------- | -------------------------------------------------- |
+| `npm start`         | Server de development (Vite)                       |
+| `npm run dev:all`   | Frontend + API în paralel                          |
+| `npm run dev:api`   | Doar API-ul Flask                                  |
+| `npm run build`     | Build de producție în `dist/`                      |
+| `npm run preview`   | Servește build-ul de producție local               |
+| `npm test`          | Teste frontend (Vitest)                            |
+| `npm run test:api`  | Teste backend (pytest)                             |
+| `npm run lint`      | ESLint                                             |
 
-## 🚀 Usage and Customization
+## 🔌 API
 
-- **Adding New Features**: Since this project integrates a full stack, it can easily be expanded with additional features like more detailed user profiles, admin functionality, and enhanced data encryption.
-- **Database Customization**: You can switch out SQLite for other databases like MySQL or PostgreSQL for larger-scale applications.
+Toate rutele sunt sub `/api`. Sesiunea circulă printr-un cookie `httpOnly`, deci nu poate fi citită din JavaScript.
+
+| Metodă   | Rută                    | Acces        | Descriere                                  |
+| -------- | ----------------------- | ------------ | ------------------------------------------ |
+| `POST`   | `/api/auth/register`    | public       | Creează cont (max. 10/oră)                 |
+| `POST`   | `/api/auth/login`       | public       | Autentificare (max. 5/minut)               |
+| `POST`   | `/api/auth/logout`      | public       | Șterge sesiunea                            |
+| `GET`    | `/api/auth/me`          | public       | Utilizatorul curent sau `null`             |
+| `POST`   | `/api/auth/password`    | autentificat | Schimbă parola                             |
+| `GET`    | `/api/cars`             | public       | Flota, cu prețuri și specificații          |
+| `POST`   | `/api/rentals`          | public       | Creează rezervare                          |
+| `GET`    | `/api/rentals`          | autentificat | Rezervările proprii                        |
+| `DELETE` | `/api/rentals/<id>`     | proprietar   | Anulează o rezervare                       |
+| `GET`    | `/api/admin/rentals`    | administrator| Toate rezervările                          |
+| `GET`    | `/api/health`           | public       | Verificare stare                           |
+
+## 🔐 Securitate
+
+- **Parole**: hashing **argon2id** (64 MiB, 3 treceri). Conturile create de versiunea veche aveau parole SHA-256 fără salt; acestea sunt acceptate o singură dată la următoarea autentificare și rescrise imediat în argon2id.
+- **Sesiuni**: JWT semnat, transportat în cookie `HttpOnly` + `SameSite=Lax`, marcat `Secure` în producție. Rolul de administrator se recitește din baza de date la fiecare cerere, deci revocarea are efect imediat.
+- **Rate limiting** pe autentificare și înregistrare, împotriva atacurilor prin forță brută.
+- **Fără enumerare de conturi**: parolă greșită și utilizator inexistent întorc același mesaj și același timp de răspuns.
+- **CORS** restrâns la originile configurate, nu `*`.
+- **Prețuri calculate pe server** — totalul unei rezervări nu poate fi modificat din browser.
+- **`SECRET_KEY`** este obligatorie în producție; aplicația refuză să pornească fără ea.
+- Modul debug este **oprit** implicit (consola Werkzeug înseamnă execuție de cod la distanță).
+
+Notă: `API/database.db` conține date de utilizatori și este ignorat de git.
+
+## 🗄️ Baza de date
+
+Migrațiile rulează automat la pornire și sunt idempotente, urmărite prin `PRAGMA user_version`.
+
+```
+users     id, username (UNIQUE, case-insensitive), password_hash,
+          is_admin, created_at, updated_at
+
+rentals   id, user_id → users(id) ON DELETE CASCADE,
+          full_name, email, phone, car_slug,
+          pickup_date, return_date, location,
+          total_price, status, created_at
+```
+
+Migrația `v1` păstrează utilizatorii și rezervările existente din schema veche.
+
+Poți rula migrațiile și manual:
+
+```bash
+cd API && .venv/Scripts/python -m flask --app app init-db
+```
+
+## 🧪 Testare
+
+```bash
+npm test           # 15 teste frontend
+npm run test:api   # 42 teste backend
+```
+
+Testele de backend acoperă migrația schemei, upgrade-ul hash-urilor vechi, izolarea între utilizatori, autorizarea de administrator, rate limiting și validarea rezervărilor.
+
+## 🎨 Design
+
+Interfața pornește de la o idee simplă: flota se compară în cifre. Fiecare fișă de mașină arată puterea raportată la cel mai puternic model din flotă, iar toate valorile numerice folosesc un strat tipografic monospaced cu cifre tabulare, ca să se alinieze în coloană.
+
+- Tokens de design în `src/styles/tokens.css` (culoare, scară tipografică, spațiere, mișcare)
+- Temă întunecată și deschisă, cu comutator manual care respectă setarea sistemului
+- Mobile-first, fără scroll orizontal
+- Focus vizibil, etichete asociate corect, `prefers-reduced-motion` respectat
+
+Fotografiile din `src/assets/images/` sunt WebP, redimensionate pentru rolul pe care îl au în pagină (hero, figuri editoriale, carduri, portrete). Dacă adaugi imagini noi, comprimă-le înainte — sursele originale aveau până la 5.500 px lățime pentru un chenar de 400 px.
+
+## 👥 Echipa
+
+- Mihalașcu Alexandru — [@alexmihalascu](https://github.com/alexmihalascu)
+- Pencea Alexandru — [@Lezinn](https://github.com/Lezinn)
+- Dinu Silviu-Ion — [@FindTheCookie](https://github.com/FindTheCookie)
+- Beznea Mihai-Gabriel — [@BezneaMihai](https://github.com/BezneaMihai)

@@ -1,0 +1,403 @@
+/* Shared UI kit: buttons, form fields, alerts, spec plates, power meters. */
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--text);
+  --btn-border: var(--line-strong);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 2.875rem;
+  padding: 0.6875rem var(--space-m);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius-m);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--primary {
+  --btn-bg: var(--signal);
+  --btn-fg: var(--signal-ink);
+  --btn-border: var(--signal);
+}
+
+.btn--primary:hover:not(:disabled) {
+  --btn-bg: var(--signal-hover);
+  --btn-border: var(--signal-hover);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  --btn-border: var(--signal);
+  --btn-fg: var(--signal);
+}
+
+.btn--quiet {
+  --btn-border: transparent;
+  --btn-fg: var(--text-muted);
+  padding-inline: var(--space-xs);
+}
+
+.btn--quiet:hover:not(:disabled) {
+  --btn-fg: var(--signal);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--lg {
+  min-height: 3.25rem;
+  padding-inline: var(--space-l);
+  font-size: var(--step-0);
+}
+
+/* ==========================================================================
+   Form fields
+   ========================================================================== */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+.field__label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.field__required {
+  color: var(--signal);
+}
+
+.field__control {
+  width: 100%;
+  min-height: 2.875rem;
+  padding: 0.625rem var(--space-xs);
+  background: var(--ink-deep);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  color: var(--text);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.field__control::placeholder {
+  color: var(--text-faint);
+}
+
+.field__control:hover:not(:disabled) {
+  border-color: var(--line-strong);
+}
+
+.field__control:focus-visible {
+  outline: none;
+  border-color: var(--signal);
+  box-shadow: 0 0 0 3px var(--signal-wash);
+}
+
+.field__control:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.field__control[aria-invalid='true'] {
+  border-color: var(--signal);
+}
+
+select.field__control {
+  appearance: none;
+  padding-inline-end: var(--space-l);
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.15rem) calc(50% + 2px),
+    calc(100% - 0.8rem) calc(50% + 2px);
+  background-size:
+    6px 6px,
+    6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+/* Dates and numbers belong to the data layer. */
+input[type='date'].field__control,
+input[type='tel'].field__control {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.field__hint,
+.field__error {
+  font-size: var(--step--1);
+  line-height: 1.4;
+}
+
+.field__hint {
+  color: var(--text-faint);
+}
+
+.field__error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  color: var(--signal);
+  font-family: var(--font-mono);
+}
+
+.field__error::before {
+  content: '!';
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Alerts
+   ========================================================================== */
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  padding: var(--space-xs) var(--space-s);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--text-muted);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  font-size: var(--step--1);
+}
+
+.alert--error {
+  border-inline-start-color: var(--signal);
+  background: var(--signal-wash);
+}
+
+.alert--success {
+  border-inline-start-color: var(--ok);
+  color: var(--text);
+}
+
+/* ==========================================================================
+   Panels and spec plates
+   ========================================================================== */
+
+.panel {
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius-l);
+  padding: var(--space-m);
+}
+
+.panel__title {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' var(--wdth-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+}
+
+/* A spec plate is a definition list rendered as an aligned data column --
+   the same way a manufacturer prints a technical sheet. */
+.spec {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 var(--space-s);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+
+.spec__key {
+  color: var(--text-faint);
+  padding-block: 0.3125rem;
+  border-block-end: 1px dotted var(--line);
+}
+
+.spec__val {
+  text-align: end;
+  color: var(--text);
+  padding-block: 0.3125rem;
+  border-block-end: 1px dotted var(--line);
+}
+
+.spec > .spec__key:last-of-type,
+.spec > .spec__val:last-of-type {
+  border-block-end: 0;
+}
+
+/* ==========================================================================
+   Power meter -- the signature device
+   --------------------------------------------------------------------------
+   Every car's output is drawn against the fleet maximum, so the fleet can be
+   compared by eye instead of by reading eight paragraphs. The fill runs from
+   steel to signal red: further right is literally hotter.
+   ========================================================================== */
+
+.meter {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.meter__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.meter__value {
+  font-size: var(--step--1);
+  letter-spacing: 0.04em;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.meter__value b {
+  font-weight: 600;
+}
+
+.meter__track {
+  position: relative;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.meter__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--line-strong) 0%, var(--signal) 100%);
+  transform-origin: left center;
+  transform: scaleX(var(--meter-scale, 0));
+  transition: transform 900ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meter__fill {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Spinner
+   ========================================================================== */
+
+.spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 640ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-page {
+  display: grid;
+  place-items: center;
+  gap: var(--space-s);
+  min-height: 60dvh;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Badges
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  padding: 0.1875rem var(--space-2xs);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.badge--pending {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+.badge--confirmed {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.badge--cancelled {
+  border-color: var(--line-strong);
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+.badge--completed {
+  border-color: var(--line-strong);
+  color: var(--text-muted);
+}

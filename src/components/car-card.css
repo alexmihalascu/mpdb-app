@@ -1,0 +1,117 @@
+.car {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  transition:
+    border-color var(--dur-mid) var(--ease-out),
+    transform var(--dur-mid) var(--ease-out),
+    box-shadow var(--dur-mid) var(--ease-out);
+}
+
+.car:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-m);
+}
+
+.car__frame {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--ink-deep);
+}
+
+.car__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--image-tone);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.car:hover .car__photo {
+  transform: scale(1.04);
+}
+
+.car__tag {
+  position: absolute;
+  inset-block-start: var(--space-2xs);
+  inset-inline-start: var(--space-2xs);
+  padding: 0.1875rem var(--space-2xs);
+  border-radius: var(--radius-s);
+  background: rgba(7, 8, 11, 0.72);
+  backdrop-filter: blur(6px);
+  color: #e9ebef;
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.car__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  flex: 1;
+  padding: var(--space-s);
+}
+
+.car__name {
+  font-size: var(--step-1);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  /* Reserve two lines so the spec tables stay on one grid across the row,
+     even when a name like "Mercedes-AMG GT 63 S E-Performance" wraps. */
+  min-height: 2.4em;
+}
+
+.car__spec {
+  margin: 0;
+}
+
+.car__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-block-start: auto;
+  padding-block-start: var(--space-s);
+  border-block-start: var(--border);
+}
+
+.car__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2em;
+  line-height: 1;
+}
+
+.car__price-value {
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.car__price-unit {
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.car__cta {
+  min-height: 2.5rem;
+  padding-inline: var(--space-s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .car:hover {
+    transform: none;
+  }
+  .car:hover .car__photo {
+    transform: none;
+  }
+}

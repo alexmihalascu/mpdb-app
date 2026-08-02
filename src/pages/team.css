@@ -1,0 +1,56 @@
+.team {
+  display: grid;
+  gap: var(--space-l);
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.member__frame {
+  overflow: hidden;
+  border: var(--border);
+  border-radius: var(--radius-l);
+  background: var(--ink-deep);
+}
+
+.member__photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  /* Portraits sit in greyscale until hovered, so the fleet photography stays
+     the only colour on the page. */
+  filter: grayscale(1) contrast(1.05);
+  transition:
+    filter var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.member:hover .member__photo,
+.member:focus-within .member__photo {
+  filter: grayscale(0) var(--image-tone);
+  transform: scale(1.03);
+}
+
+.member__name {
+  margin-block: var(--space-s) var(--space-3xs);
+  font-size: var(--step-1);
+}
+
+.member__link {
+  font-size: var(--step--1);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.member__link:hover {
+  color: var(--signal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .member:hover .member__photo,
+  .member:focus-within .member__photo {
+    transform: none;
+  }
+}

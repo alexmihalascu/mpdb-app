@@ -1,0 +1,149 @@
+.booking {
+  display: grid;
+  gap: var(--space-l);
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+.booking__form {
+  display: grid;
+  gap: var(--space-l);
+  justify-items: start;
+}
+
+.booking__alert {
+  width: 100%;
+}
+
+.booking__hint {
+  font-size: var(--step--1);
+  color: var(--text-muted);
+}
+
+/* --- Fieldsets ------------------------------------------------------------ */
+.fieldset {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fieldset legend {
+  padding: 0 0 var(--space-s);
+  width: 100%;
+  border-block-end: var(--border);
+  margin-block-end: var(--space-m);
+}
+
+.fieldset__grid {
+  display: grid;
+  gap: var(--space-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+}
+
+.fieldset__wide {
+  grid-column: 1 / -1;
+}
+
+/* --- Summary -------------------------------------------------------------- */
+.summary__inner {
+  position: sticky;
+  inset-block-start: calc(4.25rem + var(--space-s));
+  display: grid;
+  gap: var(--space-s);
+  padding: var(--space-m);
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius-l);
+}
+
+.summary__photo {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+  filter: var(--image-tone);
+}
+
+.summary__car {
+  font-size: var(--step-1);
+}
+
+.summary__placeholder {
+  padding-block: var(--space-s);
+  color: var(--text-faint);
+  font-size: var(--step--1);
+}
+
+.summary__spec {
+  padding-block-start: var(--space-2xs);
+  border-block-start: var(--border);
+}
+
+.summary__total {
+  display: grid;
+  gap: var(--space-3xs);
+  padding-block-start: var(--space-s);
+  border-block-start: 2px solid var(--line-strong);
+}
+
+.summary__amount {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25em;
+  font-size: var(--step-4);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--signal);
+}
+
+.summary__currency {
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.summary__note {
+  font-size: var(--step--2);
+  line-height: 1.5;
+  color: var(--text-faint);
+}
+
+/* --- Confirmation --------------------------------------------------------- */
+.confirm {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-m);
+  max-width: 40rem;
+  margin-block: clamp(3rem, 8vw, 6rem);
+  padding: var(--space-l);
+  background: var(--surface);
+  border: var(--border);
+  border-inline-start: 3px solid var(--ok);
+  border-radius: var(--radius-l);
+}
+
+.confirm__title {
+  font-size: var(--step-3);
+}
+
+.confirm__spec {
+  width: 100%;
+}
+
+.confirm__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+@media (max-width: 60rem) {
+  .booking {
+    grid-template-columns: 1fr;
+  }
+
+  .summary__inner {
+    position: static;
+  }
+}

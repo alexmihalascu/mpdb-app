@@ -1,0 +1,279 @@
+.nav {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  background: var(--ink);
+  border-block-end: 1px solid var(--line);
+  transition:
+    background var(--dur-mid) var(--ease-out),
+    border-color var(--dur-mid) var(--ease-out),
+    backdrop-filter var(--dur-mid) var(--ease-out);
+}
+
+.nav--scrolled {
+  background: color-mix(in srgb, var(--ink) 86%, transparent);
+  backdrop-filter: blur(12px) saturate(1.4);
+  border-block-end-color: var(--line);
+}
+
+/* Over the hero photograph the header has no background of its own, so it
+   cannot inherit the page palette: in light mode that would paint dark text
+   onto a dark image. It switches to a fixed light-on-dark set instead, and
+   hands control back to the theme as soon as the page scrolls. */
+.nav--over-hero {
+  background: transparent;
+  border-block-end-color: transparent;
+
+  --text: #f4f6f8;
+  --text-muted: #c2c9d4;
+  --text-faint: #9aa3b0;
+  --line: rgba(244, 246, 248, 0.24);
+  --line-strong: rgba(244, 246, 248, 0.45);
+  --signal: #ff3b50;
+
+  color: var(--text);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  min-height: 4.25rem;
+}
+
+/* --- Brand ---------------------------------------------------------------- */
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' var(--wdth-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* A speedometer needle at rest -- the only ornament in the header. */
+.nav__mark {
+  width: 0.5rem;
+  height: 1.375rem;
+  background: var(--signal);
+  border-radius: 1px;
+  transform: skewX(-14deg);
+}
+
+.nav__brand-sub {
+  font-weight: 400;
+  font-size: var(--step--1);
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+/* --- Menu ----------------------------------------------------------------- */
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  margin-inline-start: auto;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__link {
+  position: relative;
+  display: inline-block;
+  padding: var(--space-3xs) var(--space-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.nav__link:hover {
+  color: var(--text);
+}
+
+.nav__link--active {
+  color: var(--text);
+}
+
+.nav__link--active::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--space-2xs);
+  inset-block-end: -2px;
+  height: 2px;
+  background: var(--signal);
+}
+
+.nav__link--account {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 0.35em;
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding-inline-start: var(--space-m);
+  border-inline-start: var(--border);
+}
+
+.nav__cta {
+  min-height: 2.375rem;
+  padding-inline: var(--space-s);
+  font-size: var(--step--2);
+}
+
+.nav__icon-btn {
+  display: grid;
+  place-items: center;
+  min-width: 2.375rem;
+  min-height: 2.375rem;
+  padding-inline: var(--space-2xs);
+  background: transparent;
+  border: var(--border);
+  border-radius: var(--radius-m);
+  color: var(--text-muted);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.nav__icon-btn:hover {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+/* --- Burger --------------------------------------------------------------- */
+.nav__burger {
+  display: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-inline-start: auto;
+  background: transparent;
+  border: var(--border);
+  border-radius: var(--radius-m);
+  cursor: pointer;
+}
+
+.nav__burger-icon,
+.nav__burger-icon::before,
+.nav__burger-icon::after {
+  display: block;
+  width: 1.125rem;
+  height: 2px;
+  background: var(--text);
+  transition: transform var(--dur-mid) var(--ease-out), opacity var(--dur-fast) linear;
+}
+
+.nav__burger-icon::before,
+.nav__burger-icon::after {
+  content: '';
+  position: relative;
+}
+
+.nav__burger-icon::before {
+  inset-block-start: -6px;
+}
+
+.nav__burger-icon::after {
+  inset-block-start: 4px;
+}
+
+.nav__burger-icon.is-open {
+  background: transparent;
+}
+
+.nav__burger-icon.is-open::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav__burger-icon.is-open::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* --- Mobile --------------------------------------------------------------- */
+@media (max-width: 60rem) {
+  .nav__burger {
+    display: grid;
+  }
+
+  .nav__menu {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-s) var(--gutter) var(--space-m);
+    background: var(--ink);
+    border-block-end: var(--border);
+    box-shadow: var(--shadow-l);
+
+    /* Kept out of the accessibility tree and the tab order when closed. */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity var(--dur-mid) var(--ease-out),
+      transform var(--dur-mid) var(--ease-out),
+      visibility 0s linear var(--dur-mid);
+  }
+
+  .nav__menu.is-open {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav__link {
+    /* Full width so the divider runs the length of the panel instead of
+       stopping at the end of the label. */
+    display: block;
+    padding: var(--space-xs) 0;
+    font-size: var(--step-0);
+    border-block-end: 1px dotted var(--line);
+  }
+
+  .nav__link--active::after {
+    inset-inline: 0 auto;
+    inset-block-end: -1px;
+    width: 2rem;
+  }
+
+  .nav__actions {
+    flex-wrap: wrap;
+    padding-inline-start: 0;
+    padding-block-start: var(--space-s);
+    border-inline-start: 0;
+  }
+
+  .nav__cta {
+    flex: 1;
+  }
+}
