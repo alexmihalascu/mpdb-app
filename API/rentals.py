@@ -19,6 +19,18 @@ EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s.]+(\.[^@\s.]+)+$")
 PHONE_PATTERN = re.compile(r"^\+?[0-9 ().-]{7,20}$")
 MAX_RENTAL_DAYS = 90
 
+COVERAGE_LEVELS = {
+    "standard": {"label": "Standard", "dailyFee": 0},
+    "plus": {"label": "Plus", "dailyFee": 45},
+    "executive": {"label": "Executive", "dailyFee": 95},
+}
+
+DELIVERY_MODES = {
+    "bucharest": {"label": "Bucuresti", "flatFee": 0},
+    "otopeni": {"label": "Otopeni", "flatFee": 35},
+    "custom": {"label": "Livrare dedicata", "flatFee": 120},
+}
+
 
 def _json_body():
     data = request.get_json(silent=True)
@@ -34,6 +46,10 @@ def _parse_date(value):
 
 def _serialise(row):
     car = CARS_BY_SLUG.get(row["car_slug"])
+    days = _rental_days(row["pickup_date"], row["return_date"])
+    coverage_level = row["coverage_level"] if "coverage_level" in row.keys() else "standard"
+    delivery_mode = row["delivery_mode"] if "delivery_mode" in row.keys() else "bucharest"
+    price = _price_breakdown(car, days, coverage_level, delivery_mode)
     return {
         "id": row["id"],
         "fullName": row["full_name"],
@@ -45,8 +61,43 @@ def _serialise(row):
         "returnDate": row["return_date"],
         "location": row["location"],
         "totalPrice": row["total_price"],
+        "coverageLevel": coverage_level,
+        "coverageLabel": COVERAGE_LEVELS.get(coverage_level, COVERAGE_LEVELS["standard"])[
+            "label"
+        ],
+        "deliveryMode": delivery_mode,
+        "deliveryLabel": DELIVERY_MODES.get(delivery_mode, DELIVERY_MODES["bucharest"])[
+            "label"
+        ],
+        "priceBreakdown": price,
         "status": row["status"],
         "createdAt": row["created_at"],
+    }
+
+
+def _rental_days(pickup, returned):
+    start = _parse_date(pickup)
+    end = _parse_date(returned)
+    if start is None or end is None or end <= start:
+        return 0
+    return (end - start).days
+
+
+def _price_breakdown(car, days, coverage_level, delivery_mode):
+    daily_rate = car["pricePerDay"] if car else 0
+    coverage = COVERAGE_LEVELS.get(coverage_level, COVERAGE_LEVELS["standard"])
+    delivery = DELIVERY_MODES.get(delivery_mode, DELIVERY_MODES["bucharest"])
+    base_total = days * daily_rate
+    coverage_total = days * coverage["dailyFee"]
+    delivery_total = delivery["flatFee"]
+    return {
+        "days": days,
+        "dailyRate": daily_rate,
+        "baseTotal": base_total,
+        "coverageDailyFee": coverage["dailyFee"],
+        "coverageTotal": coverage_total,
+        "deliveryFee": delivery_total,
+        "total": base_total + coverage_total + delivery_total,
     }
 
 
@@ -75,6 +126,14 @@ def _validate(data):
     if len(location) < 2 or len(location) > 160:
         errors["location"] = "Please enter a pickup location."
 
+    coverage_level = (data.get("coverageLevel") or "standard").strip()
+    if coverage_level not in COVERAGE_LEVELS:
+        errors["coverageLevel"] = "Please choose a valid protection level."
+
+    delivery_mode = (data.get("deliveryMode") or "bucharest").strip()
+    if delivery_mode not in DELIVERY_MODES:
+        errors["deliveryMode"] = "Please choose a valid delivery option."
+
     pickup = _parse_date(data.get("pickupDate"))
     if pickup is None:
         errors["pickupDate"] = "Please enter a valid pickup date (YYYY-MM-DD)."
@@ -94,6 +153,7 @@ def _validate(data):
         return None, errors
 
     days = (returned - pickup).days
+    price = _price_breakdown(car, days, coverage_level, delivery_mode)
     return {
         "full_name": full_name,
         "email": email,
@@ -102,8 +162,10 @@ def _validate(data):
         "pickup_date": pickup.isoformat(),
         "return_date": returned.isoformat(),
         "location": location,
+        "coverage_level": coverage_level,
+        "delivery_mode": delivery_mode,
         # Computed here, never trusted from the request body.
-        "total_price": days * car["pricePerDay"],
+        "total_price": price["total"],
     }, {}
 
 
@@ -119,8 +181,9 @@ def create_rental():
         """
         INSERT INTO rentals (
             user_id, full_name, email, phone, car_slug,
-            pickup_date, return_date, location, total_price
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            pickup_date, return_date, location, coverage_level,
+            delivery_mode, total_price
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             user["id"] if user else None,
@@ -131,6 +194,8 @@ def create_rental():
             cleaned["pickup_date"],
             cleaned["return_date"],
             cleaned["location"],
+            cleaned["coverage_level"],
+            cleaned["delivery_mode"],
             cleaned["total_price"],
         ),
     )

@@ -20,6 +20,32 @@ const EMPTY = {
   pickupDate: '',
   returnDate: '',
   location: '',
+  coverageLevel: 'standard',
+  deliveryMode: 'bucharest',
+};
+
+const COVERAGE_LEVELS = {
+  standard: {
+    label: 'Standard',
+    fee: 0,
+    note: 'Asigurare inclusa si asistenta telefonica.',
+  },
+  plus: {
+    label: 'Plus',
+    fee: 45,
+    note: 'Prioritate la predare si limita redusa de raspundere.',
+  },
+  executive: {
+    label: 'Executive',
+    fee: 95,
+    note: 'Concierge, masina de inlocuire si suport extins.',
+  },
+};
+
+const DELIVERY_MODES = {
+  bucharest: { label: 'Bucuresti', fee: 0, note: 'Livrare in oras inclusa.' },
+  otopeni: { label: 'Otopeni', fee: 35, note: 'Predare la aeroport.' },
+  custom: { label: 'Dedicata', fee: 120, note: 'Coordonare speciala in afara orasului.' },
 };
 
 /* Mirrors the server's rules so mistakes are caught before a round trip. The
@@ -35,6 +61,9 @@ function validate(form) {
     errors.phone = 'Numarul de telefon nu pare valid.';
   if (!form.carSlug) errors.carSlug = 'Alege o masina din flota.';
   if (form.location.trim().length < 2) errors.location = 'Spune-ne unde livram masina.';
+  if (!COVERAGE_LEVELS[form.coverageLevel])
+    errors.coverageLevel = 'Alege un nivel de protectie.';
+  if (!DELIVERY_MODES[form.deliveryMode]) errors.deliveryMode = 'Alege tipul de livrare.';
 
   if (!form.pickupDate) errors.pickupDate = 'Alege data ridicarii.';
   else if (form.pickupDate < minDate) errors.pickupDate = 'Data ridicarii nu poate fi in trecut.';
@@ -69,7 +98,10 @@ export default function Booking() {
   );
 
   const days = daysBetween(form.pickupDate, form.returnDate);
-  const total = selectedCar ? days * selectedCar.pricePerDay : 0;
+  const baseTotal = selectedCar ? days * selectedCar.pricePerDay : 0;
+  const coverageTotal = days * COVERAGE_LEVELS[form.coverageLevel].fee;
+  const deliveryFee = selectedCar && days ? DELIVERY_MODES[form.deliveryMode].fee : 0;
+  const total = baseTotal + coverageTotal + deliveryFee;
 
   const update = (name) => (event) => {
     const { value } = event.target;
@@ -109,6 +141,8 @@ export default function Booking() {
         pickupDate: form.pickupDate,
         returnDate: form.returnDate,
         location: form.location.trim(),
+        coverageLevel: form.coverageLevel,
+        deliveryMode: form.deliveryMode,
       });
       setConfirmed(data.rental);
       setForm(EMPTY);
@@ -144,6 +178,10 @@ export default function Booking() {
             </dd>
             <dt className="spec__key">Livrare</dt>
             <dd className="spec__val">{confirmed.location}</dd>
+            <dt className="spec__key">Protectie</dt>
+            <dd className="spec__val">{confirmed.coverageLabel}</dd>
+            <dt className="spec__key">Tip livrare</dt>
+            <dd className="spec__val">{confirmed.deliveryLabel}</dd>
             <dt className="spec__key">Total</dt>
             <dd className="spec__val">{confirmed.totalPrice} EUR</dd>
           </dl>
@@ -272,6 +310,59 @@ export default function Booking() {
             </div>
           </fieldset>
 
+          <fieldset className="fieldset">
+            <legend className="eyebrow">Pachet si livrare</legend>
+            <div className="option-grid">
+              {Object.entries(COVERAGE_LEVELS).map(([key, option]) => (
+                <label
+                  className={`option-card ${form.coverageLevel === key ? 'is-active' : ''}`.trim()}
+                  key={key}
+                >
+                  <input
+                    type="radio"
+                    name="coverageLevel"
+                    value={key}
+                    checked={form.coverageLevel === key}
+                    onChange={update('coverageLevel')}
+                  />
+                  <span className="option-card__top">
+                    <span className="option-card__label">{option.label}</span>
+                    <span className="option-card__price mono">
+                      {option.fee ? `+${option.fee} EUR / zi` : 'Inclus'}
+                    </span>
+                  </span>
+                  <span className="option-card__note">{option.note}</span>
+                </label>
+              ))}
+            </div>
+            {errors.coverageLevel && <p className="field__error">{errors.coverageLevel}</p>}
+
+            <div className="option-grid option-grid--delivery">
+              {Object.entries(DELIVERY_MODES).map(([key, option]) => (
+                <label
+                  className={`option-card ${form.deliveryMode === key ? 'is-active' : ''}`.trim()}
+                  key={key}
+                >
+                  <input
+                    type="radio"
+                    name="deliveryMode"
+                    value={key}
+                    checked={form.deliveryMode === key}
+                    onChange={update('deliveryMode')}
+                  />
+                  <span className="option-card__top">
+                    <span className="option-card__label">{option.label}</span>
+                    <span className="option-card__price mono">
+                      {option.fee ? `+${option.fee} EUR` : 'Inclus'}
+                    </span>
+                  </span>
+                  <span className="option-card__note">{option.note}</span>
+                </label>
+              ))}
+            </div>
+            {errors.deliveryMode && <p className="field__error">{errors.deliveryMode}</p>}
+          </fieldset>
+
           <Button type="submit" variant="primary" size="lg" loading={submitting}>
             {submitting ? 'Se trimite' : 'Trimite rezervarea'}
           </Button>
@@ -317,6 +408,10 @@ export default function Booking() {
               <dd className="spec__val">
                 {selectedCar ? `${selectedCar.pricePerDay} EUR / zi` : '—'}
               </dd>
+              <dt className="spec__key">Protectie</dt>
+              <dd className="spec__val">{coverageTotal ? `${coverageTotal} EUR` : 'Inclus'}</dd>
+              <dt className="spec__key">Livrare</dt>
+              <dd className="spec__val">{deliveryFee ? `${deliveryFee} EUR` : 'Inclusa'}</dd>
             </dl>
 
             <div className="summary__total">

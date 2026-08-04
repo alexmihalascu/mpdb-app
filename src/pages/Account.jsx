@@ -159,6 +159,10 @@ export default function Account() {
                     </dd>
                     <dt className="spec__key">Livrare</dt>
                     <dd className="spec__val">{rental.location}</dd>
+                    <dt className="spec__key">Pachet</dt>
+                    <dd className="spec__val">
+                      {rental.coverageLabel ?? 'Standard'} / {rental.deliveryLabel ?? 'Bucuresti'}
+                    </dd>
                     <dt className="spec__key">Total</dt>
                     <dd className="spec__val">{rental.totalPrice} EUR</dd>
                   </dl>

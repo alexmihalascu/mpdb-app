@@ -8,6 +8,7 @@ import './navbar.css';
 const LINKS = [
   { to: '/', label: 'Acasa', end: true },
   { to: '/flota', label: 'Flota' },
+  { to: '/comparatie', label: 'Comparatie' },
   { to: '/rezervare', label: 'Rezervare' },
   { to: '/echipa', label: 'Echipa' },
 ];

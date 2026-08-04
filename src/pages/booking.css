@@ -45,6 +45,80 @@
   grid-column: 1 / -1;
 }
 
+/* --- Booking options ------------------------------------------------------ */
+.option-grid {
+  display: grid;
+  gap: var(--space-s);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.option-grid--delivery {
+  margin-block-start: var(--space-s);
+}
+
+.option-card {
+  position: relative;
+  display: grid;
+  gap: var(--space-xs);
+  min-height: 8.5rem;
+  padding: var(--space-s);
+  border: var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.option-card:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-1px);
+}
+
+.option-card.is-active {
+  border-color: var(--signal);
+  background: var(--signal-wash);
+}
+
+.option-card input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+}
+
+.option-card:has(input:focus-visible) {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.option-card__top {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--space-xs);
+}
+
+.option-card__label {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.option-card__price {
+  color: var(--signal);
+  font-size: var(--step--2);
+  text-align: end;
+  text-transform: uppercase;
+}
+
+.option-card__note {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+  line-height: 1.45;
+}
+
 /* --- Summary -------------------------------------------------------------- */
 .summary__inner {
   position: sticky;
@@ -145,5 +219,11 @@
 
   .summary__inner {
     position: static;
+  }
+}
+
+@media (max-width: 42rem) {
+  .option-grid {
+    grid-template-columns: 1fr;
   }
 }

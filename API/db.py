@@ -9,7 +9,7 @@ import sqlite3
 import click
 from flask import current_app, g
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 def get_db():
@@ -141,6 +141,24 @@ def _migrate_to_v1(connection):
 
 
 MIGRATIONS = {1: _migrate_to_v1}
+
+
+def _migrate_to_v2(connection):
+    """Store commercial options used by the price calculator."""
+    columns = {
+        row["name"] for row in connection.execute("PRAGMA table_info(rentals)")
+    }
+    if "coverage_level" not in columns:
+        connection.execute(
+            "ALTER TABLE rentals ADD COLUMN coverage_level TEXT NOT NULL DEFAULT 'standard'"
+        )
+    if "delivery_mode" not in columns:
+        connection.execute(
+            "ALTER TABLE rentals ADD COLUMN delivery_mode TEXT NOT NULL DEFAULT 'bucharest'"
+        )
+
+
+MIGRATIONS[2] = _migrate_to_v2
 
 
 def init_db(connection=None):

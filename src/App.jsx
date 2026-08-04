@@ -12,6 +12,8 @@ import Home from './pages/Home';
 // Everything past the landing page is split out so the first paint only ships
 // what it needs.
 const Fleet = lazy(() => import('./pages/Fleet'));
+const CarDetails = lazy(() => import('./pages/CarDetails'));
+const Compare = lazy(() => import('./pages/Compare'));
 const Booking = lazy(() => import('./pages/Booking'));
 const Team = lazy(() => import('./pages/Team'));
 const Login = lazy(() => import('./pages/Login'));
@@ -34,6 +36,8 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/flota" element={<Fleet />} />
+              <Route path="/flota/:slug" element={<CarDetails />} />
+              <Route path="/comparatie" element={<Compare />} />
               <Route path="/rezervare" element={<Booking />} />
               <Route path="/echipa" element={<Team />} />
               <Route path="/autentificare" element={<Login />} />

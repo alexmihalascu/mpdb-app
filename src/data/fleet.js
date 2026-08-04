@@ -34,6 +34,16 @@ export const carImages = {
   a45s,
   c63s,
   modelx,
+  m5cs: c63s,
+  rs6: s63,
+  defender: urus,
+  taycan: models,
+  '911turbo': gt63s,
+  panamera: s63,
+  g63: urus,
+  bentayga: s63,
+  roma: gt63s,
+  huracan: a45s,
 };
 
 export const scenes = { hero, garage, handover, road };

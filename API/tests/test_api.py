@@ -54,9 +54,13 @@ def register(client, username="testuser", password="correct-horse-1"):
 
 def test_migration_adds_constraints(app):
     connection = sqlite3.connect(app.config["DATABASE_PATH"])
-    assert connection.execute("PRAGMA user_version").fetchone()[0] == 1
+    assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
     indexes = {row[1] for row in connection.execute("PRAGMA index_list(users)")}
+    rental_columns = {
+        row[1] for row in connection.execute("PRAGMA table_info(rentals)")
+    }
     assert "idx_users_username" in indexes
+    assert {"coverage_level", "delivery_mode"} <= rental_columns
     connection.close()
 
 
@@ -276,7 +280,7 @@ def test_password_change_updates_the_credential(client):
 
 def test_catalog_lists_the_fleet(client):
     cars = client.get("/api/cars").get_json()["cars"]
-    assert len(cars) == 8
+    assert len(cars) == 18
     assert {"slug", "name", "pricePerDay", "horsepower"} <= set(cars[0])
 
 
@@ -302,6 +306,20 @@ def test_booking_total_is_computed_server_side(client):
     assert rental["totalPrice"] == 7 * 800
 
 
+def test_booking_total_includes_selected_package_and_delivery(client):
+    payload = {
+        **GOOD_BOOKING,
+        "coverageLevel": "executive",
+        "deliveryMode": "otopeni",
+        "totalPrice": 1,
+    }
+    rental = client.post("/api/rentals", json=payload).get_json()["rental"]
+    assert rental["totalPrice"] == 7 * 800 + 7 * 95 + 35
+    assert rental["coverageLabel"] == "Executive"
+    assert rental["deliveryLabel"] == "Otopeni"
+    assert rental["priceBreakdown"]["coverageTotal"] == 7 * 95
+
+
 def test_booking_is_linked_to_the_signed_in_user(client):
     register(client)
     client.post("/api/rentals", json=GOOD_BOOKING)
@@ -320,6 +338,8 @@ def test_booking_is_linked_to_the_signed_in_user(client):
         ({"returnDate": TOMORROW}, "returnDate"),
         ({"fullName": "A"}, "fullName"),
         ({"location": ""}, "location"),
+        ({"coverageLevel": "vip"}, "coverageLevel"),
+        ({"deliveryMode": "moon"}, "deliveryMode"),
     ],
 )
 def test_booking_validation_rejects_bad_input(client, override, bad_field):

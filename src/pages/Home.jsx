@@ -8,15 +8,6 @@ import { useFleet } from '../hooks/useFleet';
 import { useReveal } from '../hooks/useReveal';
 import './home.css';
 
-/* The fleet is defined by its numbers, so the hero states them outright
-   instead of making a vague promise about "premium quality". */
-const READOUT = [
-  { value: '8', unit: 'masini', note: 'in flota' },
-  { value: String(FLEET_MAX_HP), unit: 'CP', note: 'varf de putere' },
-  { value: '100', unit: 'EUR / zi', note: 'pret de pornire' },
-  { value: '24', unit: 'ore', note: 'livrare in Bucuresti' },
-];
-
 const STEPS = [
   {
     title: 'Alegi masina',
@@ -35,6 +26,13 @@ const STEPS = [
 export default function Home() {
   const { cars, error, isLoading } = useFleet();
   const featured = cars.slice(0, 3);
+  const startPrice = cars.length ? Math.min(...cars.map((car) => car.pricePerDay)) : 100;
+  const readout = [
+    { value: String(cars.length || 18), unit: 'masini', note: 'in flota' },
+    { value: String(FLEET_MAX_HP), unit: 'CP', note: 'varf de putere' },
+    { value: String(startPrice), unit: 'EUR / zi', note: 'pret de pornire' },
+    { value: '24', unit: 'ore', note: 'livrare in Bucuresti' },
+  ];
 
   const editorialRef = useReveal();
   const stepsRef = useReveal();
@@ -59,8 +57,8 @@ export default function Home() {
             in cai putere.
           </h1>
           <p className="hero__lede">
-            Opt masini de performanta, de la un Mustang de weekend la un Model X Plaid de 1020 CP.
-            Alegi dupa cifre, nu dupa adjective.
+            Optsprezece masini de performanta, de la un Mustang de weekend la un Model X Plaid de
+            1020 CP. Alegi dupa cifre, nu dupa adjective.
           </p>
           <div className="hero__actions">
             <Link className="btn btn--primary btn--lg" to="/flota">
@@ -75,7 +73,7 @@ export default function Home() {
         {/* The telemetry rail: the four numbers that decide the booking. */}
         <dl className="readout">
           <div className="readout__inner shell shell--wide">
-            {READOUT.map((item) => (
+            {readout.map((item) => (
               <div className="readout__cell" key={item.note}>
                 <dt className="readout__note">{item.note}</dt>
                 <dd className="readout__figure mono">
@@ -93,7 +91,7 @@ export default function Home() {
           <p className="eyebrow">Flota</p>
           <h2 className="head__title">Trei dintre cele mai cerute</h2>
           <Link className="head__more mono" to="/flota">
-            Toate cele 8 masini →
+            Toate masinile →
           </Link>
         </header>
 

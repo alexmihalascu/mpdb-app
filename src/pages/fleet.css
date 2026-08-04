@@ -1,11 +1,52 @@
+.fleet-console {
+  display: grid;
+  gap: var(--space-s);
+  grid-template-columns: minmax(16rem, 1.4fr) repeat(2, minmax(12rem, 0.8fr));
+  align-items: end;
+  margin-block-end: var(--space-m);
+  padding: var(--space-m);
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius-l);
+}
+
+.fleet-console__field {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.fleet-console__input {
+  min-height: 2.875rem;
+  width: 100%;
+  padding: 0 var(--space-s);
+  border: var(--border);
+  border-radius: var(--radius-m);
+  background: var(--ink);
+  color: var(--text);
+  font: inherit;
+}
+
+.fleet-console__input:focus {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
 .sorter {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-2xs);
   margin-block-end: var(--space-l);
   padding-block-end: var(--space-s);
   border-block-end: var(--border);
+}
+
+.sorter__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs);
 }
 
 .sorter__label {
@@ -38,4 +79,82 @@
   color: var(--signal);
   border-color: var(--signal);
   background: var(--signal-wash);
+}
+
+.sorter__reset {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.sorter__reset:hover {
+  color: var(--signal);
+}
+
+.fleet-overview {
+  display: grid;
+  gap: var(--space-s);
+  margin-block: calc(-1 * var(--space-s)) var(--space-l);
+}
+
+.fleet-insights {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border: var(--border);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.fleet-insights > div {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-s);
+  border-inline-end: var(--border);
+}
+
+.fleet-insights > div:last-child {
+  border-inline-end: 0;
+}
+
+.fleet-insights__value {
+  min-height: 2.4em;
+  color: var(--text);
+  font-size: var(--step-0);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.fleet-overview__compare {
+  justify-self: start;
+}
+
+@media (max-width: 58rem) {
+  .fleet-console,
+  .fleet-insights {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 36rem) {
+  .fleet-console,
+  .fleet-insights {
+    grid-template-columns: 1fr;
+  }
+
+  .fleet-insights > div {
+    border-inline-end: 0;
+    border-block-end: var(--border);
+  }
+
+  .fleet-insights > div:last-child {
+    border-block-end: 0;
+  }
 }

@@ -43,10 +43,16 @@ export function CarCard({ car, eager = false }) {
             <span className="car__price-value">{car.pricePerDay}</span>
             <span className="car__price-unit"> EUR / zi</span>
           </p>
-          <Link className="btn btn--primary car__cta" to={`/rezervare?masina=${car.slug}`}>
-            Rezerva
-            <span className="visually-hidden"> {car.name}</span>
-          </Link>
+          <div className="car__actions">
+            <Link className="btn btn--quiet car__details" to={`/flota/${car.slug}`}>
+              Detalii
+              <span className="visually-hidden"> {car.name}</span>
+            </Link>
+            <Link className="btn btn--primary car__cta" to={`/rezervare?masina=${car.slug}`}>
+              Rezerva
+              <span className="visually-hidden"> {car.name}</span>
+            </Link>
+          </div>
         </div>
       </div>
     </article>
